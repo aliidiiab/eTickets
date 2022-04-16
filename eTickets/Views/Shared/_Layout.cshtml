@@ -6,12 +6,13 @@
     <title>@ViewData["Title"] - eTickets</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css"/>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">eTickets</a>
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Movies" asp-action="Index">eTickets</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -19,17 +20,31 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                           <a class="nav-link text-dark" asp-controller="Movies"asp-action="Index"><i class="fa fa-film" aria-hidden="true"></i> Movies</a>
+                       </li>
+
+                       <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               <i class="fa fa-cog" aria-hidden="true"></i></i> Management
+                          </a>
+
+                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <a class="dropdown-item" asp-controller="Cinemas" asp-action="Index"><i class="fas fa-video" aria-hidden="true"></i> Cinemas</a>
+                              <a class="dropdown-item" asp-controller="Producers" asp-action="Index"><i class="fa fa-headphones" aria-hidden="true"></i> Producers</a>
+                              <a class="dropdown-item" asp-controller="Actors" asp-action="Index"><i class="fa fa-user"          aria-hidden="true"></i> Actors</a>
+                        </div>
+                       </li>
                     </ul>
+
+                    <form class="form-inline my-2 my-lg-0" asp-controller="Movies" asp-action="Filter" style="padding-right: 25px;">
+                        <input name="searchString" type="text" class="form-control mr-sm-2" placeholder="Search for a movie..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+                    </form>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
