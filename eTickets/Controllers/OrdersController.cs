@@ -72,7 +72,7 @@ namespace eTickets.Controllers
             //await shoppingCart.clearShoppingCartAsync();
             return RedirectToAction(nameof(Index));
         }
-        [HttpPost]
+        
         public async Task<IActionResult> clearOrderById(int id)
         {
             await orderservice.clearORDERSByIdAsync(id);
