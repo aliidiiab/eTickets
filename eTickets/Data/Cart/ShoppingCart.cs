@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 
 namespace eTickets.Data.Cart
 {
@@ -71,7 +72,15 @@ namespace eTickets.Data.Cart
         }
         public double GetShoppingCartTotal()=>context.ShoppingCartItems.Where(n=>n.ShoppingCartId == ShoppingCartId).Select(n=>n.Movie.Price * n.Amount).Sum();
             
-        
+        public async Task clearShoppingCartAsync()
+        {
+            var items = await context.ShoppingCartItems
+                                        .Where(n => n.ShoppingCartId == ShoppingCartId)
+                                        .ToListAsync();
+            context.ShoppingCartItems.RemoveRange(items);
+            await context.SaveChangesAsync();
+            
+        }
 
     }
 }
