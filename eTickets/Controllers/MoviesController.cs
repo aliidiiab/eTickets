@@ -113,8 +113,10 @@ namespace eTickets.Controllers
             {
                 var filteredMovies = allMovies.Where(n => n.Name.Contains(searchString)
                                                        || n.Descreption.Contains(searchString)).ToList();
+               
                 return View("Index",filteredMovies);
             }
+            
             
             return View("Index",allMovies);
         }

@@ -1,0 +1,16 @@
+﻿@model int;
+
+<li class="nav-item">
+	<a class="nav nav-link text-dark"
+	   asp-controller="Orders"
+	   asp-action="ShoppingCart">
+		<i class="fa fa-shopping-cart"></i>
+		@if (Model > 0)
+		{
+
+			@Model
+
+
+		}
+	</a>
+</li>
