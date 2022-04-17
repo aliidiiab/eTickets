@@ -9,6 +9,7 @@ namespace eTickets.ViewModels
 {
     public class MovieViewModel
     {
+        public int Id { get; set; }
         [Required]
         [Display(Name ="Movie Name")]
         public string Name { get; set; }
