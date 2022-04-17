@@ -1,0 +1,52 @@
+﻿@model Cinema
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4>Create Cinema</h4>
+
+<hr />
+<div class="row">
+    <div class="col-md-4 container">
+        <form method="post"asp-action="Create"asp-route-id="@Model.Id">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group text-center">
+                <img id="ProfilePicturePreview" style="width:50%; "/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Logo" class="control-label"></label>
+                <input asp-for="Logo" class="form-control" />
+                <span asp-validation-for="Logo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <a  class="btn btn-outline-primary" asp-action="Index" asp-controller="Cinemas">Show All</a>
+                <input type="submit" value="Create" class="btn btn-outline-success float-right" />     
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById('ProfilePicturePreview');
+            output.src = $("#Logo").val();
+        })
+        $("#Logo").on("change", function () {
+            var output = document.getElementById('ProfilePicturePreview');
+            output.src = $(this).val();
+        })
+    </script>
+}
