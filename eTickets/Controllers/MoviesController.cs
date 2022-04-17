@@ -97,7 +97,16 @@ namespace eTickets.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Filter(string searchString)
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var moviedetails = await service.GetMovieByIdAsync(id);
+            if (moviedetails == null) return View("NotFound");
+            await service.DeleteMovieAsync(id);
+
+            return RedirectToAction(nameof(Index));
+        }
+            public async Task<IActionResult> Filter(string searchString)
         {
             var allMovies = await service.GetAllAsync(n => n.Cinema);
             if(!string.IsNullOrEmpty(searchString))

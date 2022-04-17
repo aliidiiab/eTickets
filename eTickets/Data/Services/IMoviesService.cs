@@ -12,6 +12,10 @@ namespace eTickets.Data.Services
         Task AddNewMovieAsync(MovieViewModel newMovie);
         
         Task UpdateMovieAsync(MovieViewModel newMovie);
+        
+        Task DeleteMovieAsync(int id);
+
+
 
     }
 }

@@ -2,6 +2,7 @@
 using eTickets.Models;
 using eTickets.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -100,6 +101,21 @@ namespace eTickets.Data.Services
                 await context.Actors_Movies.AddAsync(newactormoview);
             }
             await context.SaveChangesAsync();
+
+        }
+
+        public async Task DeleteMovieAsync(int id)
+        {
+            var newentity = await GetByIdAsync(id);
+            EntityEntry entityEntry = context.Entry<Movie>(newentity);
+            entityEntry.State = EntityState.Deleted;
+            await context.SaveChangesAsync();
+            //var dbMovie = await context.Movies.FirstOrDefaultAsync(n => n.Id == id);
+            //if (dbMovie != null)
+            //{
+            //    await context.Movies.RemoveAsync(dbMovie);
+            //    await context.SaveChangesAsync();
+            //}
 
         }
     }
