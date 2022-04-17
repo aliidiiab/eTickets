@@ -3,10 +3,12 @@ using System;
 using eTickets.Data;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using eTickets.Data.Services;
+using eTickets.Data.Base;
 
 namespace eTickets.Models
 {
-    public class Movie
+    public class Movie: IEntityBase
     {
         [Key]
         public int Id { get; set; }
