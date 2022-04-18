@@ -4,6 +4,8 @@ using eTickets.Models;
 using eTickets.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace eTickets.Controllers
@@ -60,6 +62,17 @@ namespace eTickets.Controllers
         public IActionResult Register()
         {
             return View(new RegisterViewModel());
+        }
+        public async Task<IActionResult> Users()
+        {
+            var users = await context.Users.ToListAsync();
+            return View(users);
+        }
+        public  IActionResult DeleteUserById(string id)
+        {
+            context.Users.Remove(context.Users.FirstOrDefault(i => i.Id == id));
+            context.SaveChanges();
+            return RedirectToAction(nameof(Users));
         }
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel registerVM)
