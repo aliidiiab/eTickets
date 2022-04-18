@@ -2,6 +2,7 @@
 using eTickets.Data.Services;
 using eTickets.Models;
 using eTickets.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,8 @@ namespace eTickets.Controllers
             var moviedetail= await service.GetMovieByIdAsync(id);
             return View(moviedetail);
         }
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Create()
         {
             var movieDropDownsData = await service.GetNewMoviewDropDownValues();
@@ -38,6 +41,8 @@ namespace eTickets.Controllers
 
             return View();
         }
+        [Authorize(Roles = "Admin")]
+
         [HttpPost]
         public async Task<IActionResult> Create(MovieViewModel movie)
         {
@@ -52,6 +57,7 @@ namespace eTickets.Controllers
             await service.AddNewMovieAsync(movie);
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles = "Admin")]
 
         public async Task<IActionResult> Edit(int id)
         {
@@ -80,6 +86,8 @@ namespace eTickets.Controllers
             return View(response);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Edit(int id,MovieViewModel movie)
         {
             if(id != movie.Id) return View("NotFound");
@@ -96,6 +104,7 @@ namespace eTickets.Controllers
             await service.UpdateMovieAsync(movie);
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles = "Admin")]
 
 
         public async Task<IActionResult> Delete(int id)
@@ -106,7 +115,7 @@ namespace eTickets.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-            public async Task<IActionResult> Filter(string searchString)
+        public async Task<IActionResult> Filter(string searchString)
         {
             var allMovies = await service.GetAllAsync(n => n.Cinema);
             if(!string.IsNullOrEmpty(searchString))

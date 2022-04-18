@@ -1,6 +1,7 @@
 ﻿using eTickets.Data;
 using eTickets.Data.Services;
 using eTickets.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
@@ -18,10 +19,14 @@ namespace eTickets.Controllers
         {
             return View(await service.GetAllAsync());
         }
+        [Authorize(Roles = "Admin")]
+
         public IActionResult Create()
         {
             return View(new Cinema());
         }
+        [Authorize(Roles = "Admin")]
+
         [HttpPost]
         public async Task<IActionResult> Create([Bind("Logo,Name,Description")] Cinema cinema)
         {
@@ -32,6 +37,8 @@ namespace eTickets.Controllers
             await service.AddAsync(cinema);
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Delete(int id)
         {
             Cinema cinema = await service.GetByIdAsync(id);
@@ -39,12 +46,16 @@ namespace eTickets.Controllers
             await service.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Edit(int id)
         {
             Cinema cinema = await service.GetByIdAsync(id);
             if (cinema == null) return View("NotFound");
             return View(cinema);
         }
+        [Authorize(Roles = "Admin")]
+
         [HttpPost]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Logo,Name,Description")] Cinema cinema)
         {

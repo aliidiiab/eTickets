@@ -1,6 +1,7 @@
 ﻿using eTickets.Data;
 using eTickets.Data.Services;
 using eTickets.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -26,11 +27,15 @@ namespace eTickets.Controllers
             return View(producerdetails);
 
         }
+        [Authorize(Roles = "Admin")]
+
         public IActionResult Create()
         {
             return View(new Producer());
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Create([Bind("FullName,ProfilePictureURL,Bio")] Producer producer)
         {
             if (!ModelState.IsValid)
@@ -40,6 +45,8 @@ namespace eTickets.Controllers
             await service.AddAsync(producer);
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Delete(int id)
         {
             Producer producerdetails = await service.GetByIdAsync(id);
@@ -47,6 +54,8 @@ namespace eTickets.Controllers
             await service.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Edit(int id)
         {
             Producer producerdetails = await service.GetByIdAsync(id);
@@ -54,6 +63,8 @@ namespace eTickets.Controllers
             return View(producerdetails);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,ProfilePictureURL,Bio")] Producer producer)
         {
             if (!ModelState.IsValid)

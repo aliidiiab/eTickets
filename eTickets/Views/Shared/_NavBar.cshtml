@@ -1,0 +1,129 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<ApplicationUser> UserManager; 
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <a class="btn btn-outline-info my-2 my-sm-0" asp-controller="Account" asp-action="Login">
+        <i class="fas fa-sign-in-alt"></i> Log in
+    </a>
+    <span style="padding: 5px;"></span>
+
+    <a class="btn btn-outline-info my-2 my-sm-0" asp-controller="Account" asp-action="Register">
+        <i class="fa fa-user-plus" aria-hidden="true"></i> Register
+    </a>
+}
+else
+{
+
+    @*User profile section*@
+    <div class="dropdown">
+        <button class="btn btn-outline-info dropdown-toggle" type="button" id="profile-btn" data-toggle="dropdown"
+                aria-expanded="false">
+            <i class="bi bi-person-badge"></i> Welcome, @User.Identity.Name
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="profile-btn">
+            <li>
+                <a class="dropdown-item" asp-controller="Orders" asp-action="Index">
+                    <i class="bi bi-list"></i> Orders
+                </a>
+            </li>
+
+            @if (User.IsInRole("Admin"))
+            {
+                <li>
+                    <a class="dropdown-item" asp-controller="Account" asp-action="Users">
+                        <i class="bi bi-people"></i> Users
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    <span style="padding: 5px;"></span>
+    <form asp-controller="Account" asp-action="Logout">
+        <button class="btn btn-outline-info my-2 my-sm-0">
+            <i class="fas fa-sign-out-alt"></i> Log out
+        </button>
+    </form>
+}
+
+
+
+@*@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager; 
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+	<div class="container-fluid">
+		<a class="navbar-brand" asp-controller="Movies" asp-action="Index">eTickets</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+				aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+			<ul class="navbar-nav flex-grow-1">
+				<li class="nav-item">
+					<a class="nav-link text-dark" asp-controller="Movies" asp-action="Index"><i class="fa fa-film" aria-hidden="true"></i> Movies</a>
+				</li>	
+				
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-cog" aria-hidden="true"></i></i> Management
+					</a>
+
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" asp-controller="Cinemas" asp-action="Index"><i class="fas fa-video" aria-hidden="true"></i> Cinemas</a>
+						<a class="dropdown-item" asp-controller="Producers" asp-action="Index"><i class="fa fa-headphones" aria-hidden="true"></i> Producers</a>
+						<a class="dropdown-item" asp-controller="Actors" asp-action="Index"><i class="fa fa-user" aria-hidden="true"></i> Actors</a>
+					</div>
+				</li>
+				</div>
+				<ul class="navbar-nav">
+					@await Component.InvokeAsync("ShoppingCartSummary")
+				</ul>
+			</ul>
+
+
+			<form class="form-inline my-2 my-lg-0" asp-controller="Movies" asp-action="Filter" style="padding-right: 25px;">
+				<input name="searchString" type="text" class="form-control mr-sm-2" placeholder="Search for a movie..." aria-label="Recipient's username" aria-describedby="button-addon2">
+				<button class="btn btn-outline-info my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+			</form>
+
+				<a class="btn btn-outline-info my-2 my-sm-0" style="margin:3px;"
+			   asp-action="Login" asp-controller="Account">
+					<i class="fas fa-sign-in-alt"></i>
+					Log in
+				</a>
+				<a class="btn btn-outline-info my-2 my-sm-0" style="margin:3px;"
+			   asp-action="Register" asp-controller="Account">
+					<i class="fa fa-user-plus" aria-hidden="true"></i>
+					Register
+				</a>
+			
+
+				<div class="dropdown" style="margin:3px;">
+				<button class="btn btn-outline-info dropdown-toggle"
+						type="button"
+						id="profile-btn"
+						data-toggle="dropdown"
+						aria-expanded="false">
+					<i class="fa fa-user" aria-hidden="true"></i>
+					Welcome, @UserManager.GetUserName(User)
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="profile-btn">
+					<li>
+						<a class="dropdown-item" asp-controller="Orders" asp-action="Index">
+							<i class="fa fa-list"></i>
+							Orders
+						</a>
+					</li>
+
+				</ul>
+			</div>
+				<a class="btn btn-outline-info my-2 my-sm-0" style="margin:3px;"
+			   asp-action="Logout" asp-controller="Account">
+					<i class="fas fa-sign-out-alt"></i>
+					Log out
+				</a>
+		</div>
+	</div>
+</nav>*@
