@@ -100,7 +100,7 @@
 				</li>	
 				@if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                         {
-				<li class="nav-item dropdown">
+				<li class="nav-item dropdown" style="cursor:pointer">
 					<a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<i class="fa fa-cog" aria-hidden="true"></i> Management
 					</a>

@@ -1,4 +1,5 @@
-﻿@*@model List<Order>
+﻿@using eTickets.ViewModels
+@*@model List<Order>
 
 @{ 
     ViewData["Title"] = "All orders";
@@ -73,9 +74,12 @@
 					<th>Total</th>
 					@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 					{
-						<th>User</th>
+						<th>User Name</th>
+						<th>User Email</th>
+						<th>Delete Order</th>
 					}
-					<th>Delete Order</th>
+					
+					
 				</tr>
 			</thead>
 			<tbody>
@@ -100,7 +104,12 @@
 						</td>
 						@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 							{
-							<td class="align-middle"> @order.User.FullName </td>
+								foreach (var user in Model)
+								{
+									<td class="align-middle"> @User.Identity.Name </td>
+									<td class="align-middle"> @user.Email </td>
+								}
+							
 							}
 						<td>
 							@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))

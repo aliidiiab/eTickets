@@ -45,7 +45,6 @@ namespace eTickets.Controllers
             };
             return View(response);
         }
-
         public async Task<IActionResult> AddItemToShoppingCart(int id)
         {
             var item =await  moviesservice.GetMovieByIdAsync(id);
